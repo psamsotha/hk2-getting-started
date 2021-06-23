@@ -7,6 +7,8 @@ This plugin will generate a `META-INF/hk2-locator/default` file which HK2 will u
 ServiceLocatorUtilities.createAndPopulateServiceLocator();
 ```
 
+The file gets populated with the service classes annotated with `@Service`.
+
 ## Build/Run
 
 ```
