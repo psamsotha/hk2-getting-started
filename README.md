@@ -1,7 +1,28 @@
 # HK2 Getting Started
 
-The easiest way to get started with HK2 is to use the [`hk2-inhabitant-generator`](https://javaee.github.io/hk2/inhabitant-generator.html).
-This plugin will generate a `META-INF/hk2-locator/default` file which HK2 will use to populate the `ServiceLocator` when you call
+Unlike the `main` branch this repository, this branch makes use the `hk2-metadata-generator` which will be used with `javac` during compilation time. You need to include this into the `maven-compiler-plugin` configuration in your pom. This might feel more natural to use.
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <inherited>true</inherited>
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <annotationProcessorPaths>
+            <annotationProcessorPath>
+                <groupId>org.glassfish.hk2</groupId>
+                <artifactId>hk2-metadata-generator</artifactId>
+                <version>${hk2.version}</version>
+            </annotationProcessorPath>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+```
+
+The code does not need to be change from the code in the `main` branch.
 
 ```java
 ServiceLocatorUtilities.createAndPopulateServiceLocator();
@@ -14,6 +35,8 @@ The file gets populated with the service classes annotated with `@Service`.
 ```
 $ ./mvnw clean package exec:java
 ```
+
+You can also just run your `main` method from your IDE and the inhabitants file will be generated during compilation.
 
 ### See also
 
